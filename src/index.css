@@ -8,38 +8,38 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 248 250 252;
-    --foreground: 15 23 42;
+    --background: 210 20% 98%;
+    --foreground: 222 84% 4.9%;
 
-    --card: 255 255 255;
-    --card-foreground: 15 23 42;
+    --card: 0 0% 100%;
+    --card-foreground: 222 84% 4.9%;
 
-    --popover: 255 255 255;
-    --popover-foreground: 15 23 42;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 84% 4.9%;
 
     --primary: 217 91% 60%;
-    --primary-foreground: 255 255 255;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 241 245 249;
-    --secondary-foreground: 30 41 59;
+    --secondary: 210 40% 98%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 241 245 249;
-    --muted-foreground: 100 116 139;
+    --muted: 210 40% 98%;
+    --muted-foreground: 215 16% 47%;
 
     --accent: 217 91% 60%;
-    --accent-foreground: 255 255 255;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 248 250 252;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 20% 98%;
 
     --success: 142 76% 36%;
-    --success-foreground: 248 250 252;
+    --success-foreground: 210 20% 98%;
 
     --warning: 45 93% 47%;
-    --warning-foreground: 15 23 42;
+    --warning-foreground: 222 84% 4.9%;
 
     --info: 217 91% 60%;
-    --info-foreground: 248 250 252;
+    --info-foreground: 210 20% 98%;
 
     --border: 214 32% 91%;
     --input: 214 32% 91%;
@@ -47,7 +47,7 @@ All colors MUST be HSL.
 
     --financial-gain: 142 76% 36%;
     --financial-loss: 0 84% 60%;
-    --financial-neutral: 100 116 139;
+    --financial-neutral: 215 16% 47%;
 
     /* Enhanced gradients */
     --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(224 76% 48%));
@@ -82,46 +82,46 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 15 23 42;
-    --foreground: 248 250 252;
+    --background: 222 84% 4.9%;
+    --foreground: 210 20% 98%;
 
-    --card: 30 41 59;
-    --card-foreground: 248 250 252;
+    --card: 222 47% 11%;
+    --card-foreground: 210 20% 98%;
 
-    --popover: 30 41 59;
-    --popover-foreground: 248 250 252;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 20% 98%;
 
     --primary: 217 91% 60%;
-    --primary-foreground: 15 23 42;
+    --primary-foreground: 222 84% 4.9%;
 
-    --secondary: 51 65 85;
-    --secondary-foreground: 248 250 252;
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 210 20% 98%;
 
-    --muted: 51 65 85;
-    --muted-foreground: 148 163 184;
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20% 65%;
 
     --accent: 217 91% 60%;
-    --accent-foreground: 15 23 42;
+    --accent-foreground: 222 84% 4.9%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 248 250 252;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 20% 98%;
 
     --success: 142 76% 36%;
-    --success-foreground: 248 250 252;
+    --success-foreground: 210 20% 98%;
 
     --warning: 45 93% 47%;
-    --warning-foreground: 15 23 42;
+    --warning-foreground: 222 84% 4.9%;
 
     --info: 217 91% 60%;
-    --info-foreground: 248 250 252;
+    --info-foreground: 210 20% 98%;
 
-    --border: 51 65 85;
-    --input: 51 65 85;
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
     --ring: 217 91% 60%;
 
     --financial-gain: 142 76% 36%;
     --financial-loss: 0 84% 60%;
-    --financial-neutral: 148 163 184;
+    --financial-neutral: 215 20% 65%;
 
     /* Enhanced dark gradients */
     --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(224 76% 48%));
