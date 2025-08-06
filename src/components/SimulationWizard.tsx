@@ -131,7 +131,7 @@ export const SimulationWizard = ({ strategy, onResult, onBack, results }: Simula
     ];
 
     if (currentStepData) {
-      items.push({ label: currentStepData.title, icon: currentStepData.icon });
+      items.push({ label: currentStepData.title });
     }
 
     return items;
