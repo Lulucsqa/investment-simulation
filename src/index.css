@@ -9,7 +9,7 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 248 250 252;
-    --foreground: 226 232 240;
+    --foreground: 15 23 42;
 
     --card: 255 255 255;
     --card-foreground: 15 23 42;
@@ -17,17 +17,17 @@ All colors MUST be HSL.
     --popover: 255 255 255;
     --popover-foreground: 15 23 42;
 
-    --primary: 224 71% 4%;
-    --primary-foreground: 226 232 240;
+    --primary: 217 91% 60%;
+    --primary-foreground: 255 255 255;
 
-    --secondary: 226 232 240;
+    --secondary: 241 245 249;
     --secondary-foreground: 30 41 59;
 
     --muted: 241 245 249;
     --muted-foreground: 100 116 139;
 
-    --accent: 224 71% 4%;
-    --accent-foreground: 248 250 252;
+    --accent: 217 91% 60%;
+    --accent-foreground: 255 255 255;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 248 250 252;
@@ -41,22 +41,28 @@ All colors MUST be HSL.
     --info: 217 91% 60%;
     --info-foreground: 248 250 252;
 
-    --border: 226 232 240;
-    --input: 226 232 240;
-    --ring: 224 71% 4%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 217 91% 60%;
 
     --financial-gain: 142 76% 36%;
     --financial-loss: 0 84% 60%;
     --financial-neutral: 100 116 139;
 
-    --gradient-primary: linear-gradient(135deg, hsl(224 71% 4%), hsl(226 29% 9%));
-    --gradient-financial: linear-gradient(135deg, hsl(224 71% 4%), hsl(217 91% 60%));
+    /* Enhanced gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(224 76% 48%));
+    --gradient-financial: linear-gradient(135deg, hsl(217 91% 60%), hsl(142 76% 36%));
     --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(160 84% 39%));
+    --gradient-hero: linear-gradient(135deg, hsl(217 91% 60%), hsl(224 76% 48%));
+    --gradient-subtle: linear-gradient(180deg, hsl(248 250 252), hsl(241 245 249));
 
-    --shadow-financial: 0 10px 30px -10px hsl(224 71% 4% / 0.3);
-    --shadow-elevated: 0 20px 40px -10px hsl(224 71% 4% / 0.15);
+    /* Enhanced shadows */
+    --shadow-financial: 0 10px 30px -10px hsl(217 91% 60% / 0.25);
+    --shadow-elevated: 0 20px 40px -10px hsl(217 91% 60% / 0.15);
+    --shadow-soft: 0 4px 12px -2px hsl(217 91% 60% / 0.1);
+    --shadow-glow: 0 0 40px hsl(217 91% 60% / 0.3);
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -85,7 +91,7 @@ All colors MUST be HSL.
     --popover: 30 41 59;
     --popover-foreground: 248 250 252;
 
-    --primary: 226 232 240;
+    --primary: 217 91% 60%;
     --primary-foreground: 15 23 42;
 
     --secondary: 51 65 85;
@@ -94,8 +100,8 @@ All colors MUST be HSL.
     --muted: 51 65 85;
     --muted-foreground: 148 163 184;
 
-    --accent: 51 65 85;
-    --accent-foreground: 248 250 252;
+    --accent: 217 91% 60%;
+    --accent-foreground: 15 23 42;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 248 250 252;
@@ -111,18 +117,24 @@ All colors MUST be HSL.
 
     --border: 51 65 85;
     --input: 51 65 85;
-    --ring: 226 232 240;
+    --ring: 217 91% 60%;
 
     --financial-gain: 142 76% 36%;
     --financial-loss: 0 84% 60%;
     --financial-neutral: 148 163 184;
 
-    --gradient-primary: linear-gradient(135deg, hsl(15 23 42), hsl(30 41 59));
-    --gradient-financial: linear-gradient(135deg, hsl(15 23 42), hsl(217 91% 60%));
+    /* Enhanced dark gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(224 76% 48%));
+    --gradient-financial: linear-gradient(135deg, hsl(217 91% 60%), hsl(142 76% 36%));
     --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(160 84% 39%));
+    --gradient-hero: linear-gradient(135deg, hsl(217 91% 60%), hsl(224 76% 48%));
+    --gradient-subtle: linear-gradient(180deg, hsl(15 23 42), hsl(30 41 59));
 
+    /* Enhanced dark shadows */
     --shadow-financial: 0 10px 30px -10px hsl(0 0% 0% / 0.5);
     --shadow-elevated: 0 20px 40px -10px hsl(0 0% 0% / 0.3);
+    --shadow-soft: 0 4px 12px -2px hsl(0 0% 0% / 0.2);
+    --shadow-glow: 0 0 40px hsl(217 91% 60% / 0.4);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -141,5 +153,133 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Enhanced button variants */
+  .btn-gradient {
+    @apply bg-gradient-to-r from-primary to-accent text-primary-foreground;
+    @apply hover:shadow-lg hover:scale-105 transform transition-all duration-200;
+  }
+
+  .btn-outline-gradient {
+    @apply border-2 border-primary bg-transparent text-primary;
+    @apply hover:bg-gradient-to-r hover:from-primary hover:to-accent hover:text-primary-foreground;
+    @apply transition-all duration-300;
+  }
+
+  /* Card enhancements */
+  .card-elevated {
+    @apply bg-card border border-border rounded-lg shadow-soft;
+    @apply hover:shadow-elevated transition-shadow duration-300;
+  }
+
+  .card-financial {
+    @apply bg-gradient-to-br from-card to-muted/30;
+    @apply border border-border/50 rounded-lg shadow-financial;
+  }
+
+  /* Interactive elements */
+  .interactive-scale {
+    @apply hover:scale-105 transform transition-all duration-200 cursor-pointer;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+
+  /* Animations */
+  .slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .bounce-gentle {
+    animation: bounceGentle 0.6s ease-out;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  .shadow-financial {
+    box-shadow: var(--shadow-financial);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounceGentle {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+  60% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
