@@ -148,7 +148,13 @@ export default {
 				'slide-up': 'slide-up 0.3s ease-out',
 				'fade-in': 'fade-in 0.5s ease-out',
 				'slide-in-right': 'slide-in-right 0.4s ease-out',
-				'bounce-gentle': 'bounce-gentle 0.6s ease-out'
+				'bounce-gentle': 'bounce-gentle 0.6s ease-out',
+				'float': 'float 6s ease-in-out infinite',
+				'rotate-slow': 'rotate-slow 20s linear infinite',
+				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+				'hologram': 'hologram 3s ease-in-out infinite',
+				'rainbow-flow': 'rainbow-flow 3s ease-in-out infinite',
+				'shimmer': 'shimmer 1.5s infinite'
 			}
 		}
 	},
