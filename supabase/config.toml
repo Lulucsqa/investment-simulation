@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 project_id = "kjcqoxlusfcndmdtjsks"
 url = "https://kjcqoxlusfcndmdtjsks.supabase.co"
 anon_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtqY3FveGx1c2ZjbmRtZHRqc2tzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ0OTY2MzEsImV4cCI6MjA3MDA3MjYzMX0.p77UoH_KZfaDV4AFDiRbaGELm5epLUx6HMyVpaljZJg"
 service_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtqY3FveGx1c2ZjbmRtZHRqc2tzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NDQ5NjYzMSwiZXhwIjoyMDcwMDcyNjMxfQ.10SLfkH2Wdj8ss8znljq4cXeIpTujfZNjj4APVvavvI"
+=======
+project_id = "kjcqoxlusfcndmdtjsks"
+>>>>>>> a59bd68f3c10dc160bfafe7cf333edeb60258476
