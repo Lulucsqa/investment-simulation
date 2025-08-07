@@ -172,6 +172,33 @@ All colors MUST be HSL.
 }
 
 @layer components {
+  /* Responsive Utilities */
+  .responsive-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6;
+  }
+  
+  .responsive-grid-auto {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6;
+  }
+  
+  .responsive-text {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+  
+  .responsive-padding {
+    @apply p-4 sm:p-6 lg:p-8;
+  }
+  
+  .responsive-margin {
+    @apply m-4 sm:m-6 lg:m-8;
+  }
+  
+  .mobile-first-card {
+    @apply w-full bg-card rounded-lg sm:rounded-xl lg:rounded-2xl;
+    @apply p-4 sm:p-6 lg:p-8;
+    @apply shadow-sm sm:shadow-md lg:shadow-lg;
+  }
+
   /* Modern glassmorphism cards */
   .card-glass {
     @apply bg-white/20 backdrop-blur-xl border border-white/30 rounded-2xl;

@@ -269,24 +269,24 @@ export const SimulationWizard = ({ strategy, onResult, onBack, results }: Simula
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Breadcrumbs */}
       <Breadcrumbs items={getBreadcrumbItems()} />
 
       {/* Progress Header */}
       <Card className="bg-gradient-to-r from-primary/5 to-accent/5">
-        <CardHeader>
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <CardTitle className="text-xl">
+        <CardHeader className="p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+            <div className="w-full sm:w-auto">
+              <CardTitle className="text-lg sm:text-xl">
                 {getStrategyName(strategy)}
               </CardTitle>
-              <p className="text-muted-foreground">
+              <p className="text-sm sm:text-base text-muted-foreground">
                 {currentStepData.description}
               </p>
             </div>
             
-            <Badge variant="secondary" className="text-sm">
+            <Badge variant="secondary" className="text-xs sm:text-sm whitespace-nowrap">
               Passo {currentStep + 1} de {steps.length}
             </Badge>
           </div>
@@ -303,8 +303,8 @@ export const SimulationWizard = ({ strategy, onResult, onBack, results }: Simula
 
       {/* Steps Navigation */}
       <Card>
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between">
+        <CardContent className="p-4 sm:p-6">
+          <div className="flex items-center justify-between overflow-x-auto">
             {steps.map((step, index) => {
               const Icon = step.icon;
               const isCompleted = completedSteps.includes(step.id);

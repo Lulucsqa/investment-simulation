@@ -93,20 +93,20 @@ export const WelcomeScreen = ({ onStrategySelect, onSkip }: WelcomeScreenProps) 
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-background p-6">
-      <div className="max-w-6xl mx-auto space-y-8">
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-background p-4 sm:p-6">
+      <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8">
         {/* Header */}
         <div className="text-center space-y-4 animate-slide-up">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium">
-            <Zap className="h-4 w-4" />
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-primary/10 rounded-full text-primary text-xs sm:text-sm font-medium">
+            <Zap className="h-3 w-3 sm:h-4 sm:w-4" />
             Sistema de Simulação Inteligente
           </div>
           
-          <h1 className="text-5xl font-bold text-gradient leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gradient leading-tight">
             Otimize seus Investimentos
           </h1>
           
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-4">
             Descubra as melhores estratégias de investimento com simulações precisas 
             e análises detalhadas para maximizar seus retornos.
           </p>
@@ -151,7 +151,7 @@ export const WelcomeScreen = ({ onStrategySelect, onSkip }: WelcomeScreenProps) 
             </div>
 
             {/* Strategy Cards */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
               {strategies.map((strategy, index) => {
                 const Icon = strategy.icon;
                 const isSelected = selectedStrategy === strategy.id;
