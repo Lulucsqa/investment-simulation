@@ -1,11 +1,4 @@
 {
-<<<<<<< HEAD
-  "dependencies": {
-    "@supabase/supabase-js": "^2.53.0"
-  },
-  "devDependencies": {
-    "@types/node": "^24.2.0"
-=======
   "name": "vite_react_shadcn_ts",
   "private": true,
   "version": "0.0.0",
@@ -88,6 +81,5 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0",
     "vite": "^5.4.19"
->>>>>>> a59bd68f3c10dc160bfafe7cf333edeb60258476
   }
 }
