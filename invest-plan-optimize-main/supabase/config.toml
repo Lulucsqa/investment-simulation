@@ -1,0 +1,48 @@
+# SimuInvest Imobiliário - Supabase Configuration
+project_id = "kjcqoxlusfcndmdtjsks"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+api_url = "http://localhost"
+
+[inbucket]
+enabled = true
+port = 54324
+smtp_port = 54325
+pop3_port = 54326
+
+[storage]
+enabled = true
+port = 54327
+image_transformation = true
+duplicate_functions = false
+
+[auth]
+enabled = true
+port = 54328
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["https://localhost:3000"]
+jwt_expiry = 3600
+enable_signup = true
+enable_email_confirmations = false
+enable_sms_confirmations = false
+
+[edge_functions]
+enabled = true
+port = 54329
+
+[analytics]
+enabled = false
