@@ -230,7 +230,7 @@ const Dashboard = () => {
                       <span className="text-success font-semibold">Baixo 📈</span>
                     </div>
                     <Button className="w-full btn-gradient group-hover:shadow-neon text-sm sm:text-base">
-                      <span className="hidden sm:inline">Começar Simulação</span>
+                      <span className="hidden sm:inline text-brand-dark">Começar Simulação</span>
                       <span className="sm:hidden">Simular</span>
                       <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                     </Button>
