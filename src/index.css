@@ -215,9 +215,14 @@ All colors MUST be HSL.
     @apply transform hover:scale-105 transition-all duration-300;
   }
 
+  /* Ensure content stays above hover overlay */
+  .btn-gradient > * {
+    @apply relative z-10;
+  }
+
   .btn-gradient::before {
     content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300 z-0 pointer-events-none;
     background: var(--gradient-rainbow);
   }
 
