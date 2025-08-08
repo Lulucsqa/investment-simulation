@@ -2,16 +2,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  TrendingUp, 
-  Building, 
-  Target, 
-  BarChart3, 
-  Settings,
-  Users,
-  Star,
-  ArrowRight
-} from "lucide-react";
+import { TrendingUp, Building, Target, BarChart3, Settings, Users, Star, ArrowRight } from "lucide-react";
 import { WelcomeScreen } from "./WelcomeScreen";
 import { OnboardingModal } from "./OnboardingModal";
 import { HelpCenter } from "./HelpCenter";
@@ -22,17 +13,16 @@ import { MobileHeader } from "./layout/MobileHeader";
 import { ResponsiveContainer } from "./ui/responsive-container";
 import { ResponsiveGrid } from "./layout/ResponsiveGrid";
 import { useResponsive } from "@/hooks/useResponsive";
-
 type ViewMode = 'welcome' | 'dashboard' | 'wizard';
-
 const Dashboard = () => {
   const [results, setResults] = useState<SimulationResult[]>([]);
   const [viewMode, setViewMode] = useState<ViewMode>('welcome');
   const [selectedStrategy, setSelectedStrategy] = useState<string>('');
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [hasSeenWelcome, setHasSeenWelcome] = useState(false);
-  const { isMobile } = useResponsive();
-
+  const {
+    isMobile
+  } = useResponsive();
   useEffect(() => {
     // Check if user has seen welcome screen before
     const hasSeenWelcomeBefore = localStorage.getItem('hasSeenWelcome');
@@ -41,79 +31,58 @@ const Dashboard = () => {
       setViewMode('dashboard');
     }
   }, []);
-
   const addResult = (result: SimulationResult) => {
     setResults(prev => [...prev, result]);
   };
-
   const clearResults = () => {
     setResults([]);
   };
-
   const handleStrategySelect = (strategyId: string) => {
     setSelectedStrategy(strategyId);
     setViewMode('wizard');
-    
+
     // Mark welcome as seen
     if (!hasSeenWelcome) {
       localStorage.setItem('hasSeenWelcome', 'true');
       setHasSeenWelcome(true);
     }
   };
-
   const handleSkipWelcome = () => {
     localStorage.setItem('hasSeenWelcome', 'true');
     setHasSeenWelcome(true);
     setViewMode('dashboard');
   };
-
   const handleBackToDashboard = () => {
     setViewMode('dashboard');
     setSelectedStrategy('');
   };
-
   const handleQuickStart = (strategy: string) => {
     setSelectedStrategy(strategy);
     setViewMode('wizard');
   };
-
   const handleShowOnboarding = () => {
     setShowOnboarding(true);
   };
-
   const handleOnboardingComplete = () => {
     setShowOnboarding(false);
   };
 
   // Show welcome screen for new users
   if (!hasSeenWelcome && viewMode === 'welcome') {
-    return (
-      <WelcomeScreen 
-        onStrategySelect={handleStrategySelect}
-        onSkip={handleSkipWelcome}
-      />
-    );
+    return <WelcomeScreen onStrategySelect={handleStrategySelect} onSkip={handleSkipWelcome} />;
   }
 
   // Show simulation wizard
   if (viewMode === 'wizard' && selectedStrategy) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
+    return <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
         <ResponsiveContainer maxWidth="2xl" padding="md">
-          <SimulationWizard
-            strategy={selectedStrategy}
-            onResult={addResult}
-            onBack={handleBackToDashboard}
-            results={results}
-          />
+          <SimulationWizard strategy={selectedStrategy} onResult={addResult} onBack={handleBackToDashboard} results={results} />
         </ResponsiveContainer>
-      </div>
-    );
+      </div>;
   }
 
   // Main dashboard
-  return (
-    <>
+  return <>
       <div className="min-h-screen relative overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-background via-primary/5 to-accent/10">
@@ -123,11 +92,7 @@ const Dashboard = () => {
         </div>
 
         {/* Mobile Header */}
-        <MobileHeader
-          title="Sistema de Simulação"
-          subtitle="🚀 Otimize suas estratégias com IA"
-          onShowOnboarding={handleShowOnboarding}
-        />
+        <MobileHeader title="Sistema de Simulação" subtitle="🚀 Otimize suas estratégias com IA" onShowOnboarding={handleShowOnboarding} />
 
         {/* Desktop Header */}
         <div className="hidden md:block relative z-10 border-b bg-card/50 backdrop-blur-xl">
@@ -144,12 +109,7 @@ const Dashboard = () => {
                 </div>
                 
                 <div className="flex items-center gap-4 animate-slide-in-right">
-                  <Button 
-                    variant="outline" 
-                    size="lg"
-                    onClick={handleShowOnboarding}
-                    className="btn-neon hover:shadow-neon"
-                  >
+                  <Button variant="outline" size="lg" onClick={handleShowOnboarding} className="btn-neon hover:shadow-neon text-slate-50">
                     <Settings className="h-5 w-5 mr-2 animate-rotate-slow" />
                     Tour Guiado
                   </Button>
@@ -165,7 +125,10 @@ const Dashboard = () => {
         <ResponsiveContainer maxWidth="2xl" padding="md" className="relative z-10">
           <div className="space-y-6 sm:space-y-8 lg:space-y-10 py-6">
             {/* Quick Stats */}
-            <ResponsiveGrid columns={{ xs: 2, md: 4 }} gap="sm" className="animate-fade-in">
+            <ResponsiveGrid columns={{
+            xs: 2,
+            md: 4
+          }} gap="sm" className="animate-fade-in">
             <Card className="card-floating group cursor-pointer">
               <CardContent className="p-3 sm:p-4 lg:p-6">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
@@ -186,10 +149,7 @@ const Dashboard = () => {
                   <div className="w-full sm:w-auto">
                     <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">Melhor Retorno</p>
                     <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-financial-gain">
-                      {results.length > 0 
-                        ? `${Math.max(...results.map(r => r.returnPercentage)).toFixed(1)}%`
-                        : '0%'
-                      }
+                      {results.length > 0 ? `${Math.max(...results.map(r => r.returnPercentage)).toFixed(1)}%` : '0%'}
                     </p>
                   </div>
                   <div className="p-2 sm:p-3 lg:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-br from-success to-green-400 group-hover:animate-pulse-glow self-end sm:self-auto">
@@ -241,9 +201,11 @@ const Dashboard = () => {
               </Badge>
             </div>
             
-            <ResponsiveGrid columns={{ xs: 1, lg: 3 }} gap="lg">
-              <Card className="card-holographic group cursor-pointer relative overflow-hidden"
-                    onClick={() => handleQuickStart('fixed-income')}>
+            <ResponsiveGrid columns={{
+              xs: 1,
+              lg: 3
+            }} gap="lg">
+              <Card className="card-holographic group cursor-pointer relative overflow-hidden" onClick={() => handleQuickStart('fixed-income')}>
                 <div className="absolute inset-0 bg-gradient-to-br from-success/20 to-emerald-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <CardHeader className="pb-4 sm:pb-6 relative z-10">
                   <div className="flex items-center justify-between mb-3 sm:mb-4">
@@ -276,8 +238,7 @@ const Dashboard = () => {
                 </CardContent>
               </Card>
 
-              <Card className="card-holographic group cursor-pointer relative overflow-hidden"
-                    onClick={() => handleQuickStart('real-estate')}>
+              <Card className="card-holographic group cursor-pointer relative overflow-hidden" onClick={() => handleQuickStart('real-estate')}>
                 <div className="absolute inset-0 bg-gradient-to-br from-warning/20 to-orange-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <CardHeader className="pb-4 sm:pb-6 relative z-10">
                   <div className="flex items-center justify-between mb-3 sm:mb-4">
@@ -310,8 +271,7 @@ const Dashboard = () => {
                 </CardContent>
               </Card>
 
-              <Card className="card-holographic group cursor-pointer relative overflow-hidden"
-                    onClick={() => handleQuickStart('optimization')}>
+              <Card className="card-holographic group cursor-pointer relative overflow-hidden" onClick={() => handleQuickStart('optimization')}>
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <CardHeader className="pb-4 sm:pb-6 relative z-10">
                   <div className="flex items-center justify-between mb-3 sm:mb-4">
@@ -335,14 +295,7 @@ const Dashboard = () => {
                       <span className="text-muted-foreground">Complexidade:</span>
                       <span className="text-primary font-semibold">Alta 🚀</span>
                     </div>
-                    <Button 
-                      className={`w-full transition-all duration-300 text-sm sm:text-base ${
-                        results.length === 0 
-                          ? 'opacity-50 cursor-not-allowed' 
-                          : 'btn-gradient hover:shadow-neon'
-                      }`}
-                      disabled={results.length === 0}
-                    >
+                    <Button className={`w-full transition-all duration-300 text-sm sm:text-base ${results.length === 0 ? 'opacity-50 cursor-not-allowed' : 'btn-gradient hover:shadow-neon'}`} disabled={results.length === 0}>
                       <span className="hidden sm:inline">
                         {results.length === 0 ? '⏳ Precisa de Simulações' : '🚀 Começar Otimização'}
                       </span>
@@ -369,13 +322,7 @@ const Dashboard = () => {
       </div>
 
       {/* Onboarding Modal */}
-      <OnboardingModal
-        isOpen={showOnboarding}
-        onClose={() => setShowOnboarding(false)}
-        onComplete={handleOnboardingComplete}
-      />
-    </>
-  );
+      <OnboardingModal isOpen={showOnboarding} onClose={() => setShowOnboarding(false)} onComplete={handleOnboardingComplete} />
+    </>;
 };
-
 export default Dashboard;
