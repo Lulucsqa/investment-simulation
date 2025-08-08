@@ -256,7 +256,7 @@ export const SimulationWizard = ({ strategy, onResult, onBack, results }: Simula
               <Button variant="outline" onClick={onBack}>
                 Voltar ao Dashboard
               </Button>
-              <Button onClick={() => window.location.reload()} className="btn-gradient">
+              <Button onClick={() => { setCurrentStep(0); setCompletedSteps([]); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="btn-gradient">
                 Nova Simulação
               </Button>
             </div>

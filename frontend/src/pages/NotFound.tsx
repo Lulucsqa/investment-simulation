@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 
 const NotFound = () => {
@@ -9,18 +9,21 @@ const NotFound = () => {
       "404 Error: User attempted to access non-existent route:",
       location.pathname
     );
+    document.title = "404 - Página não encontrada";
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute('content', '404 página não encontrada - Simulações de investimentos');
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
+    <main className="min-h-screen flex items-center justify-center bg-background">
+      <section className="text-center">
         <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 hover:text-blue-700 underline">
-          Return to Home
-        </a>
-      </div>
-    </div>
+        <p className="text-xl text-muted-foreground mb-4">Ops! Página não encontrada</p>
+        <Link to="/" className="text-primary hover:opacity-90 underline">
+          Voltar ao início
+        </Link>
+      </section>
+    </main>
   );
 };
 

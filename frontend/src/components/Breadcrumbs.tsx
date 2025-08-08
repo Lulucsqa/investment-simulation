@@ -7,6 +7,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Link } from "react-router-dom";
 
 interface BreadcrumbItemProps {
   label: string;
@@ -23,9 +24,11 @@ export const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/" className="flex items-center gap-1">
-            <Home className="h-4 w-4" />
-            Dashboard
+          <BreadcrumbLink asChild className="flex items-center gap-1">
+            <Link to="/">
+              <Home className="h-4 w-4" />
+              Dashboard
+            </Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         
@@ -42,9 +45,11 @@ export const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
                   {item.label}
                 </BreadcrumbPage>
               ) : (
-                <BreadcrumbLink href={item.href} className="flex items-center gap-1">
-                  {item.icon && <item.icon className="h-4 w-4" />}
-                  {item.label}
+                <BreadcrumbLink asChild className="flex items-center gap-1">
+                  <Link to={item.href || "/"}>
+                    {item.icon && <item.icon className="h-4 w-4" />}
+                    {item.label}
+                  </Link>
                 </BreadcrumbLink>
               )}
             </BreadcrumbItem>
