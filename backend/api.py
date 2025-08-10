@@ -19,6 +19,14 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from core import OptimizedInvestment
 from visualization import plotar_historico_planta_pronto, plotar_cenarios
 
+# Supabase integration (optional)
+try:
+    from supabase_integration import supabase_client, save_simulation_result, get_simulation_history
+    SUPABASE_ENABLED = True
+except ImportError:
+    SUPABASE_ENABLED = False
+    print("⚠️  Supabase integration not available")
+
 app = FastAPI(
     title="Investment Simulation API",
     description="API for real estate and fixed income investment simulations",
@@ -79,6 +87,8 @@ class SimulationResult(BaseModel):
     patrimonio_final: float
     rentabilidade_total: float
     rentabilidade_anual: float
+    saved_to_database: bool = False
+    simulation_id: Optional[str] = None
 
 class OptimizationResult(BaseModel):
     """Result of portfolio optimization"""
@@ -120,12 +130,23 @@ async def simulate_cdi(params: CDIParams):
         rentabilidade_total = ((patrimonio_final / total_investido) - 1) * 100
         rentabilidade_anual = ((patrimonio_final / total_investido) ** (1/params.anos) - 1) * 100
         
-        return SimulationResult(
+        result = SimulationResult(
             historico=historico,
             patrimonio_final=patrimonio_final,
             rentabilidade_total=rentabilidade_total,
             rentabilidade_anual=rentabilidade_anual
         )
+        
+        # Save to Supabase if available
+        if SUPABASE_ENABLED:
+            saved = save_simulation_result(
+                strategy="CDI",
+                parameters=params.dict(),
+                result=result.dict()
+            )
+            result.saved_to_database = saved
+        
+        return result
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -265,6 +286,43 @@ async def get_chart(chart_name: str):
         media_type="image/jpeg",
         filename=f"{chart_name}.jpg"
     )
+
+@app.get("/history/{user_email}")
+async def get_user_history(user_email: str, limit: int = 10):
+    """Get simulation history for a user"""
+    if not SUPABASE_ENABLED:
+        raise HTTPException(status_code=503, detail="Database not available")
+    
+    try:
+        history = get_simulation_history(user_email, limit)
+        return {
+            "user_email": user_email,
+            "simulations": history,
+            "total": len(history)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/stats")
+async def get_simulation_stats():
+    """Get general simulation statistics"""
+    if not SUPABASE_ENABLED:
+        raise HTTPException(status_code=503, detail="Database not available")
+    
+    try:
+        stats = supabase_client.get_simulation_stats()
+        return stats
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/health/database")
+async def database_health():
+    """Check database connection health"""
+    return {
+        "supabase_enabled": SUPABASE_ENABLED,
+        "connected": supabase_client.is_connected() if SUPABASE_ENABLED else False,
+        "timestamp": "2025-01-08T23:00:00Z"
+    }
 
 if __name__ == "__main__":
     import uvicorn
