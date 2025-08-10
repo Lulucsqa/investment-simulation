@@ -1,20 +1,30 @@
 # Investment Simulation System 🚀📈
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Lulucsqa/investment-simulation)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Lulucsqa/investment-simulation)
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Lulucsqa/investment-simulation)
 
 ## 🌟 Sistema de Simulação e Otimização de Investimentos Imobiliários
 
 Este sistema permite simular e comparar diferentes estratégias de investimento, incluindo renda fixa (CDI, IPCA+) e investimentos imobiliários (compra na planta, imóvel pronto, estratégias mistas). O sistema calcula retornos ajustados pela inflação, considera impostos brasileiros, e otimiza a alocação de portfólio para maximizar retornos.
 
-## 🚀 Deploy Rápido no Heroku
+## 🚀 Deploy Rápido (Escolha uma opção)
 
-### ⚡ Deploy com Um Clique (Mais Fácil)
+### ⚡ Opção 1: Deploy no Render (Recomendado)
+
+1. **Clique no botão "Deploy to Render" acima** ⬆️
+2. **Conecte sua conta GitHub**
+3. **Confirme as configurações**
+4. **Aguarde o deploy (2-3 minutos)**
+5. **Acesse sua aplicação**
+
+### ⚡ Opção 2: Deploy no Heroku
 
 1. **Clique no botão "Deploy to Heroku" acima** ⬆️
 2. **Escolha um nome para sua aplicação**
 3. **Clique em "Deploy app"**
-4. **Aguarde o deploy completar (2-3 minutos)**
-5. **Clique em "View" para acessar sua aplicação**
+4. **Aguarde o deploy completar**
+5. **Clique em "View" para acessar**
 
 ### 🌐 Sua Aplicação Estará Disponível Em:
 
