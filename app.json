@@ -1,0 +1,34 @@
+{
+  "name": "Investment Simulation System",
+  "description": "Sistema de Simulação e Otimização de Investimentos Imobiliários",
+  "repository": "https://github.com/your-username/investment-simulation",
+  "logo": "https://cdn.jsdelivr.net/npm/heroicons@1.0.6/outline/chart-bar.svg",
+  "keywords": ["python", "fastapi", "investment", "simulation", "real-estate", "finance"],
+  "image": "heroku/python",
+  "stack": "heroku-22",
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "env": {
+    "ENVIRONMENT": {
+      "description": "Application environment",
+      "value": "production"
+    },
+    "DEBUG": {
+      "description": "Debug mode",
+      "value": "false"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "addons": [],
+  "scripts": {
+    "postdeploy": "echo 'Investment Simulation System deployed successfully!'"
+  }
+}

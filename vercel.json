@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "backend/api.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "backend/api.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "backend/api.py"
+    }
+  ],
+  "env": {
+    "PYTHONPATH": "."
+  }
+}
