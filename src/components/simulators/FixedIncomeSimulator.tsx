@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function FixedIncomeSimulator() {
+export const FixedIncomeSimulator: React.FC = () => {
     const [selectedInvestment, setSelectedInvestment] = useState('');
     const investments = [
         { value: 'IPCA+', description: 'Investimento atrelado ao IPCA com juros adicionais.' },
@@ -8,7 +8,7 @@ function FixedIncomeSimulator() {
         { value: 'Poupança', description: 'Investimento tradicional com rendimento mensal.' }
     ];
 
-    const handleSelectChange = (event) => {
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedInvestment(event.target.value);
     };
 
@@ -41,6 +41,4 @@ function FixedIncomeSimulator() {
             )}
         </div>
     );
-}
-
-export default FixedIncomeSimulator;
+};
