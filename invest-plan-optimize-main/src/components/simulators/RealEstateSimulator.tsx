@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { MobileFriendlyInput } from "@/components/ui/mobile-friendly-input";
 import { Badge } from "@/components/ui/badge";
 import { Home, Building, Calculator } from "lucide-react";
 import { SimulationResult, RealEstateParameters } from "@/types/investment";
@@ -32,7 +33,7 @@ export const RealEstateSimulator = ({ onResult }: RealEstateSimulatorProps) => {
   const handleInputChange = (field: keyof RealEstateParameters, value: string | number) => {
     setParameters(prev => ({
       ...prev,
-      [field]: typeof value === 'string' ? parseFloat(value) || 0 : value
+      [field]: typeof value === 'string' ? (value === '' ? 0 : parseFloat(value) || 0) : value
     }));
   };
 
@@ -94,98 +95,90 @@ export const RealEstateSimulator = ({ onResult }: RealEstateSimulatorProps) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="property-value">Valor do Imóvel (R$)</Label>
-          <Input
-            id="property-value"
-            type="number"
-            value={parameters.propertyValue}
-            onChange={(e) => handleInputChange('propertyValue', e.target.value)}
-            placeholder="500.000"
-          />
-        </div>
+        <MobileFriendlyInput
+          id="property-value"
+          label="Valor do Imóvel (R$)"
+          type="number"
+          value={parameters.propertyValue}
+          onChange={(e) => handleInputChange('propertyValue', e.target.value)}
+          placeholder="500.000"
+          onClear={() => handleInputChange('propertyValue', 0)}
+        />
 
-        <div className="space-y-2">
-          <Label htmlFor="down-payment">Entrada (R$)</Label>
-          <Input
-            id="down-payment"
-            type="number"
-            value={parameters.downPayment}
-            onChange={(e) => handleInputChange('downPayment', e.target.value)}
-            placeholder="150.000"
-          />
-        </div>
+        <MobileFriendlyInput
+          id="down-payment"
+          label="Entrada (R$)"
+          type="number"
+          value={parameters.downPayment}
+          onChange={(e) => handleInputChange('downPayment', e.target.value)}
+          placeholder="150.000"
+          onClear={() => handleInputChange('downPayment', 0)}
+        />
 
-        <div className="space-y-2">
-          <Label htmlFor="financing-rate">Taxa de Financiamento (% a.a.)</Label>
-          <Input
-            id="financing-rate"
-            type="number"
-            step="0.1"
-            value={parameters.financingRate}
-            onChange={(e) => handleInputChange('financingRate', e.target.value)}
-            placeholder="10.5"
-          />
-        </div>
+        <MobileFriendlyInput
+          id="financing-rate"
+          label="Taxa de Financiamento (% a.a.)"
+          type="number"
+          step="0.1"
+          value={parameters.financingRate}
+          onChange={(e) => handleInputChange('financingRate', e.target.value)}
+          placeholder="10.5"
+          onClear={() => handleInputChange('financingRate', 0)}
+        />
 
-        <div className="space-y-2">
-          <Label htmlFor="appreciation-rate">Valorização Mensal (%)</Label>
-          <Input
-            id="appreciation-rate"
-            type="number"
-            step="0.1"
-            value={parameters.appreciationRate}
-            onChange={(e) => handleInputChange('appreciationRate', e.target.value)}
-            placeholder="0.5"
-          />
-        </div>
+        <MobileFriendlyInput
+          id="appreciation-rate"
+          label="Valorização Mensal (%)"
+          type="number"
+          step="0.1"
+          value={parameters.appreciationRate}
+          onChange={(e) => handleInputChange('appreciationRate', e.target.value)}
+          placeholder="0.5"
+          onClear={() => handleInputChange('appreciationRate', 0)}
+        />
 
-        <div className="space-y-2">
-          <Label htmlFor="monthly-rent">Aluguel Mensal (R$)</Label>
-          <Input
-            id="monthly-rent"
-            type="number"
-            value={parameters.monthlyRent}
-            onChange={(e) => handleInputChange('monthlyRent', e.target.value)}
-            placeholder="2.500"
-          />
-        </div>
+        <MobileFriendlyInput
+          id="monthly-rent"
+          label="Aluguel Mensal (R$)"
+          type="number"
+          value={parameters.monthlyRent}
+          onChange={(e) => handleInputChange('monthlyRent', e.target.value)}
+          placeholder="2.500"
+          onClear={() => handleInputChange('monthlyRent', 0)}
+        />
 
-        <div className="space-y-2">
-          <Label htmlFor="years">Prazo (anos)</Label>
-          <Input
-            id="years"
-            type="number"
-            value={parameters.years}
-            onChange={(e) => handleInputChange('years', e.target.value)}
-            placeholder="20"
-          />
-        </div>
+        <MobileFriendlyInput
+          id="years"
+          label="Prazo (anos)"
+          type="number"
+          value={parameters.years}
+          onChange={(e) => handleInputChange('years', e.target.value)}
+          placeholder="20"
+          onClear={() => handleInputChange('years', 0)}
+        />
 
         {isUnderConstruction && (
-          <div className="space-y-2">
-            <Label htmlFor="construction-years">Tempo de Construção (anos)</Label>
-            <Input
-              id="construction-years"
-              type="number"
-              value={parameters.constructionYears}
-              onChange={(e) => handleInputChange('constructionYears', e.target.value)}
-              placeholder="3"
-            />
-          </div>
+          <MobileFriendlyInput
+            id="construction-years"
+            label="Tempo de Construção (anos)"
+            type="number"
+            value={parameters.constructionYears}
+            onChange={(e) => handleInputChange('constructionYears', e.target.value)}
+            placeholder="3"
+            onClear={() => handleInputChange('constructionYears', 0)}
+          />
         )}
 
-        <div className="space-y-2">
-          <Label htmlFor="inflation">Inflação (% a.a.)</Label>
-          <Input
-            id="inflation"
-            type="number"
-            step="0.1"
-            value={parameters.inflationRate}
-            onChange={(e) => handleInputChange('inflationRate', e.target.value)}
-            placeholder="4.5"
-          />
-        </div>
+        <MobileFriendlyInput
+          id="inflation"
+          label="Inflação (% a.a.)"
+          type="number"
+          step="0.1"
+          value={parameters.inflationRate}
+          onChange={(e) => handleInputChange('inflationRate', e.target.value)}
+          placeholder="4.5"
+          onClear={() => handleInputChange('inflationRate', 0)}
+        />
       </div>
 
       <Card className="bg-muted/50">

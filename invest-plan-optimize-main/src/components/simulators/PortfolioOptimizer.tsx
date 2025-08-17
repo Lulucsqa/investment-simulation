@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { MobileFriendlyInput } from "@/components/ui/mobile-friendly-input";
 import { Target, Zap, TrendingUp } from "lucide-react";
 import { SimulationResult } from "@/types/investment";
 import { optimizePortfolio } from "@/lib/calculations";
@@ -102,17 +103,16 @@ export const PortfolioOptimizer = ({ results, onResult }: PortfolioOptimizerProp
           </Card>
 
           <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="target-return">Retorno Alvo (% a.a.)</Label>
-              <Input
-                id="target-return"
-                type="number"
-                step="0.1"
-                value={targetReturn}
-                onChange={(e) => setTargetReturn(parseFloat(e.target.value) || 0)}
-                placeholder="15"
-              />
-            </div>
+            <MobileFriendlyInput
+              id="target-return"
+              label="Retorno Alvo (% a.a.)"
+              type="number"
+              step="0.1"
+              value={targetReturn}
+              onChange={(e) => setTargetReturn(e.target.value === '' ? 0 : parseFloat(e.target.value) || 0)}
+              placeholder="15"
+              onClear={() => setTargetReturn(0)}
+            />
 
             <div className="space-y-3">
               <Label htmlFor="risk-tolerance">
@@ -135,21 +135,20 @@ export const PortfolioOptimizer = ({ results, onResult }: PortfolioOptimizerProp
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="max-allocation">Alocação Máxima por Ativo (%)</Label>
-              <Input
-                id="max-allocation"
-                type="number"
-                min="1"
-                max="100"
-                value={maxAllocation}
-                onChange={(e) => setMaxAllocation(parseInt(e.target.value) || 50)}
-                placeholder="80"
-              />
-              <p className="text-xs text-muted-foreground">
-                Limite máximo de concentração em um único ativo
-              </p>
-            </div>
+            <MobileFriendlyInput
+              id="max-allocation"
+              label="Alocação Máxima por Ativo (%)"
+              type="number"
+              min="1"
+              max="100"
+              value={maxAllocation}
+              onChange={(e) => setMaxAllocation(e.target.value === '' ? 50 : parseInt(e.target.value) || 50)}
+              placeholder="80"
+              onClear={() => setMaxAllocation(50)}
+            />
+            <p className="text-xs text-muted-foreground">
+              Limite máximo de concentração em um único ativo
+            </p>
           </div>
 
           <Button 

@@ -28,19 +28,28 @@ export const ResultsComparison = ({ results, onClear }: ResultsComparisonProps) 
     );
   }
 
-  // Prepare chart data
+  // Prepare chart data - Fix overlapping data issue
   const maxLength = Math.max(...results.map(r => r.monthlyData.length));
   const chartData = Array.from({ length: maxLength }, (_, index) => {
     const dataPoint: any = { month: index + 1 };
     
     results.forEach((result, resultIndex) => {
       const monthData = result.monthlyData[index];
-      if (monthData) {
-        dataPoint[`strategy_${resultIndex}`] = monthData.netValue;
+      if (monthData && monthData.netValue !== undefined && !isNaN(monthData.netValue)) {
+        dataPoint[`strategy_${resultIndex}`] = Math.round(monthData.netValue);
+      } else {
+        // Fill missing data with null to prevent line breaks
+        dataPoint[`strategy_${resultIndex}`] = null;
       }
     });
     
     return dataPoint;
+  }).filter(dataPoint => {
+    // Remove data points where all strategies are null
+    const hasValidData = results.some((_, index) => 
+      dataPoint[`strategy_${index}`] !== null && dataPoint[`strategy_${index}`] !== undefined
+    );
+    return hasValidData;
   });
 
   const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
@@ -127,41 +136,82 @@ export const ResultsComparison = ({ results, onClear }: ResultsComparisonProps) 
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-80">
+          <div className="h-80 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
+              <LineChart 
+                data={chartData}
+                margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+              >
+                <CartesianGrid 
+                  strokeDasharray="3 3" 
+                  className="opacity-30"
+                  stroke="hsl(var(--border))"
+                />
                 <XAxis 
                   dataKey="month" 
-                  tick={{ fontSize: 12 }}
+                  tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
                   tickFormatter={(value) => `${value}m`}
+                  axisLine={{ stroke: 'hsl(var(--border))' }}
+                  tickLine={{ stroke: 'hsl(var(--border))' }}
                 />
                 <YAxis 
-                  tick={{ fontSize: 12 }}
-                  tickFormatter={(value) => `R$ ${(value / 1000).toFixed(0)}k`}
+                  tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                  tickFormatter={(value) => {
+                    if (value >= 1000000) {
+                      return `R$ ${(value / 1000000).toFixed(1)}M`;
+                    } else if (value >= 1000) {
+                      return `R$ ${(value / 1000).toFixed(0)}k`;
+                    }
+                    return `R$ ${value.toFixed(0)}`;
+                  }}
+                  axisLine={{ stroke: 'hsl(var(--border))' }}
+                  tickLine={{ stroke: 'hsl(var(--border))' }}
+                  domain={['dataMin * 0.95', 'dataMax * 1.05']}
                 />
                 <Tooltip 
-                  formatter={(value: number, name: string) => [
-                    formatCurrency(value),
-                    results[parseInt(name.split('_')[1])]?.name || 'Estratégia'
-                  ]}
+                  formatter={(value: number, name: string) => {
+                    if (value === null || value === undefined || isNaN(value)) {
+                      return ['Sem dados', 'Estratégia'];
+                    }
+                    const strategyIndex = parseInt(name.split('_')[1]);
+                    const strategyName = results[strategyIndex]?.name || 'Estratégia';
+                    return [formatCurrency(value), strategyName];
+                  }}
                   labelFormatter={(label) => `Mês ${label}`}
+                  contentStyle={{
+                    backgroundColor: 'hsl(var(--background))',
+                    border: '1px solid hsl(var(--border))',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                  }}
                 />
                 <Legend 
                   formatter={(value) => {
                     const index = parseInt(value.split('_')[1]);
-                    return results[index]?.name || 'Estratégia';
+                    const result = results[index];
+                    return result?.name || 'Estratégia';
+                  }}
+                  wrapperStyle={{
+                    paddingTop: '20px',
+                    fontSize: '12px'
                   }}
                 />
-                {results.map((_, index) => (
+                {results.map((result, index) => (
                   <Line
-                    key={index}
+                    key={`${result.id}-${index}`}
                     type="monotone"
                     dataKey={`strategy_${index}`}
                     stroke={colors[index % colors.length]}
-                    strokeWidth={2}
+                    strokeWidth={2.5}
                     dot={false}
-                    activeDot={{ r: 4 }}
+                    activeDot={{ 
+                      r: 5, 
+                      fill: colors[index % colors.length],
+                      stroke: 'hsl(var(--background))',
+                      strokeWidth: 2
+                    }}
+                    connectNulls={false}
+                    name={result.name}
                   />
                 ))}
               </LineChart>

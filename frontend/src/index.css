@@ -257,7 +257,7 @@ All colors MUST be HSL.
 
   .glow-on-hover::after {
     content: '';
-    @apply absolute inset-0 rounded-inherit opacity-0 transition-opacity duration-300;
+    @apply absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300;
     background: var(--gradient-primary);
     filter: blur(20px);
     z-index: -1;
