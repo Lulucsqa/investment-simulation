@@ -197,7 +197,7 @@ export const FixedIncomeSimulator: React.FC = () => {
                                 ))}
                             </SelectContent>
                         </Select>
-                        <div className={`flex items-center gap-2 mt-2 p-3 bg-secondary/20 rounded-md ${!selectedInvestment ? 'opacity-50' : ''}`}>
+                        <div className="flex items-center gap-2 mt-2 p-3 bg-secondary/20 rounded-md">
                             <Info className="h-4 w-4" />
                             <div className="flex flex-col">
                                 <span className="font-medium">{selectedInvestment || 'Selecione um investimento'}</span>
