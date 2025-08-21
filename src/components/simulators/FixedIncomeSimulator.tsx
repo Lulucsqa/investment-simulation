@@ -53,6 +53,20 @@ export const FixedIncomeSimulator: React.FC = () => {
         }).format(value);
     };
 
+    const formatNumberInput = (value: string) => {
+        // Remove todos os caracteres não numéricos exceto ponto e vírgula
+        const cleanValue = value.replace(/[^\d.,]/g, '');
+        // Converte vírgula para ponto
+        return cleanValue.replace(',', '.');
+    };
+    
+    const handleNumberInput = (value: string, setter: (value: string) => void) => {
+        const formattedValue = formatNumberInput(value);
+        if (formattedValue === '' || (!isNaN(parseFloat(formattedValue)) && parseFloat(formattedValue) >= 0)) {
+            setter(formattedValue);
+        }
+    };
+
     const validateFields = () => {
         const newErrors: any = {};
         logger.debug('Validando campos do simulador', {
@@ -65,6 +79,7 @@ export const FixedIncomeSimulator: React.FC = () => {
         if (!initialValue || parseFloat(initialValue) <= 0) {
             newErrors.initialValue = 'Valor inicial deve ser maior que zero';
             logger.warn('Valor inicial inválido', { value: initialValue });
+        }
         
         if (monthlyContribution && parseFloat(monthlyContribution) < 0) {
             newErrors.monthlyContribution = 'Aporte mensal não pode ser negativo';
@@ -182,17 +197,17 @@ export const FixedIncomeSimulator: React.FC = () => {
                                 ))}
                             </SelectContent>
                         </Select>
-                        {selectedInvestment && (
-                            <div className="flex items-center gap-2 mt-2 p-3 bg-secondary/20 rounded-md">
-                                <Info className="h-4 w-4" />
-                                <div className="flex flex-col">
-                                    <span className="font-medium">{selectedInvestment}</span>
-                                    <span className="text-sm text-muted-foreground">
-                                        {investments.find(inv => inv.value === selectedInvestment)?.description}
-                                    </span>
-                                </div>
+                        <div className={`flex items-center gap-2 mt-2 p-3 bg-secondary/20 rounded-md ${!selectedInvestment ? 'opacity-50' : ''}`}>
+                            <Info className="h-4 w-4" />
+                            <div className="flex flex-col">
+                                <span className="font-medium">{selectedInvestment || 'Selecione um investimento'}</span>
+                                <span className="text-sm text-muted-foreground">
+                                    {selectedInvestment 
+                                        ? investments.find(inv => inv.value === selectedInvestment)?.description
+                                        : 'Escolha um tipo de investimento para ver mais informações'}
+                                </span>
                             </div>
-                        )}
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -200,9 +215,11 @@ export const FixedIncomeSimulator: React.FC = () => {
                             <Label>Valor Inicial (R$)</Label>
                             <div className="space-y-1">
                                 <Input
-                                    type="number"
+                                    type="text"
+                                    inputMode="decimal"
                                     value={initialValue}
-                                    onChange={(e) => setInitialValue(e.target.value)}
+                                    onChange={(e) => handleNumberInput(e.target.value, setInitialValue)}
+                                    placeholder="0,00"
                                     className={`text-right ${errors.initialValue ? 'border-red-500' : ''}`}
                                 />
                                 {errors.initialValue && (
@@ -215,9 +232,11 @@ export const FixedIncomeSimulator: React.FC = () => {
                             <Label>Aporte Mensal (R$)</Label>
                             <div className="space-y-1">
                                 <Input
-                                    type="number"
+                                    type="text"
+                                    inputMode="decimal"
                                     value={monthlyContribution}
-                                    onChange={(e) => setMonthlyContribution(e.target.value)}
+                                    onChange={(e) => handleNumberInput(e.target.value, setMonthlyContribution)}
+                                    placeholder="0,00"
                                     className={`text-right ${errors.monthlyContribution ? 'border-red-500' : ''}`}
                                 />
                                 {errors.monthlyContribution && (
