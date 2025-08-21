@@ -4,7 +4,67 @@ export type Json =
   | boolean
   | null
   | { [key: string]: Json | undefined }
-  | Json[]
+  | Json[];
+
+export interface Database {
+  public: {
+    Tables: {
+      simulations: {
+        Row: {
+          id: string;
+          user_id: string;
+          type: string;
+          parameters: any;
+          result: any;
+          created_at: string;
+        };
+        Insert: {
+          user_id: string;
+          type: string;
+          parameters: any;
+          result: any;
+        };
+        Update: {
+          user_id?: string;
+          type?: string;
+          parameters?: any;
+          result?: any;
+        };
+      };
+      logs: {
+        Row: {
+          id: number;
+          level: 'info' | 'warn' | 'error' | 'debug';
+          message: string;
+          timestamp: string;
+          data?: string;
+          userId?: string;
+          component?: string;
+        };
+        Insert: {
+          level: 'info' | 'warn' | 'error' | 'debug';
+          message: string;
+          timestamp: string;
+          data?: string;
+          userId?: string;
+          component?: string;
+        };
+        Update: {
+          level?: 'info' | 'warn' | 'error' | 'debug';
+          message?: string;
+          timestamp?: string;
+          data?: string;
+          userId?: string;
+          component?: string;
+        };
+      };
+    };
+    Views: Record<never, never>;
+    Functions: Record<never, never>;
+    Enums: Record<never, never>;
+    CompositeTypes: Record<never, never>;
+  };
+}
 
 export type Database = {
   // Allows to automatically instanciate createClient with right options

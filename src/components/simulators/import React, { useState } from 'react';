@@ -1,0 +1,123 @@
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
+
+export const SimulationDashboard: React.FC = () => {
+    const [activeSimulation, setActiveSimulation] = useState<string | null>(null);
+    
+    const simulationTypes = [
+        {
+            title: "Simulações conservadoras com CDB, Tesouro Direto e investimentos de baixo risco",
+            risk: "Baixo",
+            riskColor: "text-green-500",
+            complexity: "Baixa",
+            icon: "💰"
+        },
+        {
+            title: "Análise de FIIs com dividend yield e potencial de valorização",
+            risk: "Moderado",
+            riskColor: "text-yellow-500",
+            complexity: "Moderada",
+            icon: "🏢"
+        },
+        {
+            title: "Combine estratégias para maximizar retornos e controlar riscos",
+            risk: "Alto",
+            riskColor: "text-blue-500",
+            complexity: "Alta",
+            icon: "🎯"
+        }
+    ];
+
+    return (
+        <div className="space-y-6 p-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {simulationTypes.map((sim, index) => (
+                    <Card key={index} className="bg-card/50 backdrop-blur">
+                        <CardHeader>
+                            <CardTitle className="text-lg flex items-center gap-2">
+                                <span>{sim.icon}</span>
+                                {sim.title}
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="space-y-4">
+                                <div className="flex justify-between">
+                                    <span>Risco:</span>
+                                    <span className={sim.riskColor}>{sim.risk}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span>Complexidade:</span>
+                                    <span>{sim.complexity}</span>
+                                </div>
+                                <Button 
+                                    className="w-full"
+                                    onClick={() => setActiveSimulation(sim.title)}
+                                >
+                                    Começar Simulação
+                                </Button>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+
+            <Card className="mt-8">
+                <CardHeader>
+                    <CardTitle>Resultados e Comparações</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    {!activeSimulation ? (
+                        <div className="text-center py-8">
+                            <h3 className="text-xl font-semibold">Nenhuma simulação realizada</h3>
+                            <p className="text-muted-foreground">
+                                Execute simulações para ver os resultados e comparações aqui.
+                            </p>
+                        </div>
+                    ) : (
+                        <div className="w-full overflow-x-auto">
+                            <LineChart
+                                width={800}
+                                height={400}
+                                data={[]} // Aqui virão os dados da simulação
+                                margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="month" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Line
+                                    type="monotone"
+                                    dataKey="invested"
+                                    name="Total Investido"
+                                    stroke="#8884d8"
+                                />
+                                <Line
+                                    type="monotone"
+                                    dataKey="accumulated"
+                                    name="Valor Acumulado"
+                                    stroke="#82ca9d"
+                                />
+                            </LineChart>
+                        </div>
+                    )}
+                </CardContent>
+            </Card>
+        </div>
+    );
+};
